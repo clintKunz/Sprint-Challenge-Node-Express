@@ -59,6 +59,24 @@ server.use(helmet());
 //Update, PUT, update(id, obj)
 
 //Delete, DELETE, remove(id)
+    //actions
+    server.delete('/action/:id', (req, res) => {
+        const id = req.params.id;
+        actionModel.remove(id)
+            .then(numberOfDeletedActions => {
+                res.status(200).json(numberOfDeletedActions);
+            })
+            .catch(() => res.status(500).json({error: "Error deleting action"}));
+    })
+    //projects
+    server.delete('/project/:id', (req, res) => {
+        const id = req.params.id;
+        projectModel.remove(id)
+            .then(numberOfDeletedProjects => {
+                res.status(200).json(numberOfDeletedProjects);
+            })
+            .catch(() => res.status(500).json({error: "Error deleting project"}));
+    })
 
 //getProjectActions(id) -> returns list of all actions for a project
 
