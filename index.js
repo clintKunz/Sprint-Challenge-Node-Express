@@ -100,6 +100,14 @@ server.use(helmet());
     })
 
 //getProjectActions(id) -> returns list of all actions for a project
-
+    //actions
+    server.get('/project/:id', (req, res) => {
+        const id = req.params.id;
+        projectModel.getProjectActions(id)
+            .then(actions => {
+                res.status(200).json(actions);
+            })
+            .catch(() => res.status(500).json({error: `Error reading actions for projec with the id:${id}`}));
+    })
 
 server.listen(port, () => console.log(`\n-->Listening to port:${port}<--\n`));
