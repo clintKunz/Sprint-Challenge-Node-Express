@@ -70,6 +70,9 @@ server.use(helmet());
         const updatedAction = {project_id, description, notes, completed};
         actionModel.update(id, updatedAction)
             .then(updatedAction => {
+                if(updatedAction===null) {
+                    res.status(400).json({error: "Error updating action, no action found by that id"})
+                }
                 res.status(200).json(updatedAction);
             })
             .catch(() => res.status(500).json({error: "Error updating action"}));
@@ -81,6 +84,9 @@ server.use(helmet());
         const updatedProject = {name, description, completed};
         projectModel.update(id, updatedProject)
             .then(updatedProject => {
+                if(updatedProject===null) {
+                    res.status(400).json({error: "Error updating project, no project found by that id"})
+                }
                 res.status(200).json(updatedProject);
             })
             .catch(() => res.status(500).json({error: "Error updating project"}));
