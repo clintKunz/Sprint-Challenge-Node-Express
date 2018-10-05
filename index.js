@@ -9,7 +9,13 @@ const projectModel = require('./data/helpers/projectModel');
 const server = express();
 
 //middleware
-
+const checkId = (req, res, next) => {
+    const {project_id} = req.body;
+    if(!project_id) {
+        res.status(400).json({error: "No valid project_id sent to server"});
+    }
+    next();
+}
 
 //global middleware
 server.use(cors());
@@ -18,7 +24,7 @@ server.use(helmet());
 
 //Create, POST, insert(obj)
     //Actions
-    server.post('/actions', (req, res) => {
+    server.post('/actions', checkId, (req, res) => {
         const {project_id, description, notes, completed} = req.body;
         const newAction = {project_id, description, notes, completed};
         actionModel.insert(newAction)
@@ -58,7 +64,7 @@ server.use(helmet());
 
 //Update, PUT, update(id, obj)
     //actions
-    server.put('/action/:id', (req, res) => {
+    server.put('/action/:id', checkId, (req, res) => {
         const id = req.params.id;
         const {project_id, description, notes, completed} = req.body;
         const updatedAction = {project_id, description, notes, completed};
