@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Route, Link } from 'react-router-dom';
 import Actions from './Actions';
 import Projects from './Projects';
+import Project from './Project';
 
 class App extends Component {
   constructor() {
@@ -44,6 +45,9 @@ class App extends Component {
         )} />
         <Route path='/projects' render={props => (
           <Projects {...props} projects={this.state.projects} />
+        )} />
+        <Route path='/project/:id' render={props => (
+          <Project {...props} projects={this.state.projects} />
         )} />
       </div>
     );
