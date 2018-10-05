@@ -39,6 +39,22 @@ server.use(helmet());
     })
 
 //Read, GET, get()
+    //actions
+    server.get('/actions', (req, res) => {
+        actionModel.get()
+            .then(actions => {
+                res.status(200).json(actions);
+            })
+            .catch(() => res.status(500).json({error: "Error reading actions"}));
+    })
+    //projects
+    server.get('/projects', (req, res) => {
+        projectModel.get()
+            .then(projects => {
+                res.status(200).json(projects);
+            })
+            .catch(() => res.status(500).json({error: "Error reading projects"}));
+    })
 
 //Update, PUT, update(id, obj)
 
