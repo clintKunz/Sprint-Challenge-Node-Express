@@ -57,7 +57,28 @@ server.use(helmet());
     })
 
 //Update, PUT, update(id, obj)
-
+    //actions
+    server.put('/action/:id', (req, res) => {
+        const id = req.params.id;
+        const {project_id, description, notes, completed} = req.body;
+        const updatedAction = {project_id, description, notes, completed};
+        actionModel.update(id, updatedAction)
+            .then(updatedAction => {
+                res.status(200).json(updatedAction);
+            })
+            .catch(() => res.status(500).json({error: "Error updating action"}));
+    })
+    //projects
+    server.put('/project/:id', (req, res) => {
+        const id = req.params.id;
+        const {name, description, completed} = req.body;
+        const updatedProject = {name, description, completed};
+        projectModel.update(id, updatedProject)
+            .then(updatedProject => {
+                res.status(200).json(updatedProject);
+            })
+            .catch(() => res.status(500).json({error: "Error updating project"}));
+    })
 //Delete, DELETE, remove(id)
     //actions
     server.delete('/action/:id', (req, res) => {
